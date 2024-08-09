@@ -8,9 +8,9 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 
 ### Ejercicios
 
-[./routed-anecdotes]()
+[./routed-anecdotes](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/routed-anecdotes)
 
-- [ ] 7.1 => a: React-router
+- [x] 7.1 => a: React-router
 - [ ] 7.2 => a: React-router
 - [ ] 7.3 => a: React-router
 - [ ] 7.4 => b: Hooks personalizados

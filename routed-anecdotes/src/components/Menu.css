@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  column-gap: 16px;
+}
+
+.navbar > .link {
+  text-decoration: none;
+  color: var(--color-text);
+  font-size: 20px;
+}
+
+.navbar > .link:hover {
+  opacity: 0.8;
+}

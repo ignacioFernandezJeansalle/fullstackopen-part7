@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-text: #111;
+}
+
+body {
+  background: #eee;
+  color: var(--color-text);
+}
+
+main {
+  padding: 16px 32px;
+}
