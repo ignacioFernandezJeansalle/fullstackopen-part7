@@ -1,3 +1,5 @@
+import "./Footer.css";
+
 const Footer = () => (
   <footer>
     Anecdote app for <a href="https://fullstackopen.com/">Full Stack Open</a>. See{" "}
