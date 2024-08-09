@@ -6,6 +6,7 @@ import AnecdoteList from "./components/AnecdoteList";
 import Anecdote from "./components/Anecdote";
 import About from "./components/About";
 import CreateNew from "./components/CreateNew";
+import Notification from "./components/Notification";
 import Footer from "./components/Footer";
 
 import "./App.css";
@@ -27,6 +28,7 @@ const App = () => {
       id: 2,
     },
   ]);
+  const [notification, setNotification] = useState(null);
 
   const match = useMatch("/anecdotes/:id");
   const anecdote = match ? anecdotes.find((a) => a.id === Number(match.params.id)) : null;
@@ -36,6 +38,10 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
+    setNotification(`A new anecdote "${anecdote.content}" created!`);
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
   };
 
   /* const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
@@ -62,6 +68,8 @@ const App = () => {
           <Route path="/create" element={<CreateNew addNew={addNew} />} />
           <Route path="/anecdotes/:id" element={<Anecdote anecdote={anecdote} />} />
         </Routes>
+
+        <Notification message={notification} />
       </main>
 
       <Footer />
