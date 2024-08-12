@@ -14,7 +14,7 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 - [x] 7.2 => a: React-router
 - [x] 7.3 => a: React-router
 - [x] 7.4 => b: Hooks personalizados
-- [ ] 7.5 => b: Hooks personalizados
+- [x] 7.5 => b: Hooks personalizados
 - [ ] 7.6 => b: Hooks personalizados
 
 [./country-hook]()
