@@ -21,6 +21,6 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 
 - [x] 7.7 => b: Hooks personalizados
 
-[./ultimate-hooks]()
+[./ultimate-hooks](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/ultimate-hooks)
 
 - [x] 7.8 => b: Hooks personalizados
