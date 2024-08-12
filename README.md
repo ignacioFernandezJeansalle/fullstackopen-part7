@@ -23,4 +23,4 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 
 [./ultimate-hooks]()
 
-- [ ] 7.8 => b: Hooks personalizados
+- [x] 7.8 => b: Hooks personalizados
