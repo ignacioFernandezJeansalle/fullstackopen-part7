@@ -17,9 +17,9 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 - [x] 7.5 => b: Hooks personalizados
 - [x] 7.6 => b: Hooks personalizados
 
-[./country-hook]()
+[./country-hook](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/country-hook)
 
-- [ ] 7.7 => b: Hooks personalizados
+- [x] 7.7 => b: Hooks personalizados
 
 [./ultimate-hooks]()
 
