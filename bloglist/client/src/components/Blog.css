@@ -1,0 +1,34 @@
+.bloglist-item {
+  margin-bottom: 6px;
+  padding: 6px;
+  border: 1px solid #ccc;
+}
+
+.bloglist-item .title {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+}
+
+.bloglist-item .content {
+  margin-top: 6px;
+}
+
+.bloglist-item .content span {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  margin-block: 2px;
+}
+
+.bloglist-item .content span button {
+  padding: 2px;
+}
+
+.bloglist-item .content .remove {
+  margin-top: 12px;
+  padding: 2px 4px;
+  background: #c00;
+  border: 1px solid #800;
+  color: #fff;
+}
