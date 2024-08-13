@@ -1,0 +1,14 @@
+.notification {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  max-width: 500px;
+  border: 1px solid #bbb;
+  padding: 16px;
+  background: #555;
+  color: #eee;
+}
+
+.notification.error {
+  background: #d00;
+}
