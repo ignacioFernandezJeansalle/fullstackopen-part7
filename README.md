@@ -28,7 +28,7 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 [./bloglist](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/bloglist)
 
 - [x] 7.9 => e: Ampliar la lista de blogs - Prettier
-- [ ] 7.10 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [x] 7.10 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [ ] 7.11 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [ ] 7.12 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [ ] 7.13 => e: Ampliar la lista de blogs - Administración de Estado: Redux

@@ -1,4 +1,7 @@
 import { useState, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { setNotificationWithTime } from "./reducers/notificationReducer";
+
 import "./App.css";
 
 import blogService from "./services/blogs";
@@ -6,15 +9,16 @@ import loginService from "./services/login";
 import FormLogin from "./components/FormLogin";
 import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
-import Message from "./components/Message";
 import Blog from "./components/Blog";
+import Notification from "./components/Notification";
 
 const App = () => {
+  const dispatch = useDispatch();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [blogs, setBlogs] = useState([]);
-  const [message, setMessage] = useState(null);
   const formBlogRef = useRef();
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const App = () => {
       setPassword("");
     } catch (error) {
       console.log(error);
-      handleMessage("Wrong credentials", true);
+      dispatch(setNotificationWithTime("Wrong credentials", true, 5000));
     }
   };
 
@@ -52,12 +56,12 @@ const App = () => {
   const addNewBlog = async (newBlog) => {
     try {
       const addedBlog = await blogService.create(newBlog, user.token);
-      handleMessage(`A new blog: ${addedBlog.title} by ${addedBlog.author}`, false);
+      dispatch(setNotificationWithTime(`A new blog: ${addedBlog.title} by ${addedBlog.author}`, false, 5000));
       setBlogs(blogs.concat(addedBlog));
       formBlogRef.current.toggleVisibility();
     } catch (error) {
       console.log(error);
-      handleMessage("Error create new blog", true);
+      dispatch(setNotificationWithTime("Error create new blog", true, 5000));
     }
   };
 
@@ -66,21 +70,15 @@ const App = () => {
 
     try {
       const removedBlog = await blogService.remove(id, user.token);
-      handleMessage(`The blog ${removedBlog.title} by ${removedBlog.author} has been deleted`, false);
-
+      dispatch(
+        setNotificationWithTime(`The blog ${removedBlog.title} by ${removedBlog.author} has been deleted`, false, 5000)
+      );
       const newBlogs = blogs.filter((blog) => blog.id !== removedBlog.id);
       setBlogs(newBlogs);
     } catch (error) {
       console.log(error);
-      handleMessage("Error delete blog", true);
+      dispatch(setNotificationWithTime("Error delete blog", true, 5000));
     }
-  };
-
-  const handleMessage = (message, isError) => {
-    setMessage({ message, isError });
-    setTimeout(() => {
-      setMessage(null);
-    }, 5000);
   };
 
   const addLike = async (id, currentLikes) => {
@@ -99,7 +97,7 @@ const App = () => {
       setBlogs(newBlogs);
     } catch (error) {
       console.log(error);
-      handleMessage("Error update likes", true);
+      dispatch(setNotificationWithTime("Error update likes", true, 5000));
     }
   };
 
@@ -128,7 +126,7 @@ const App = () => {
       </header>
 
       <main>
-        <Message {...message} />
+        <Notification />
         {user === null ? (
           <FormLogin
             username={username}
