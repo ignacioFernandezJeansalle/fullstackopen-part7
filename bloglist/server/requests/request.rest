@@ -1,0 +1,58 @@
+GET http://localhost:3003/api/blogs
+
+### GET by ID
+GET http://localhost:3003/api/blogs/66a39a3da9fcfa8870d26cf8
+
+
+### 
+POST http://localhost:3003/api/blogs HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hY2hpdG9majIiLCJpZCI6IjY2OGZlNzZiNmYzYTRiZGFjMzg1NWRhNCIsImlhdCI6MTcyMDcxOTAyNn0.GoLlZQaRq11sHBnbcz3jHuoIKoE_0EgNcQSvxjHwjN8
+
+{
+  "title": "Titulo con token 4",
+  "author": "Autor",
+  "url": "url",
+  "likes": 11
+}
+
+### Unknow endpoint
+GET http://localhost:3003/api
+
+### Delete
+DELETE http://localhost:3003/api/blogs/669017746c026f3ca54be8a0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hY2hpdG9maiIsImlkIjoiNjY4ZWMzNzM2ODQ5MWM3NmEzYjZhZjJhIiwiaWF0IjoxNzIwNzE5Mzk5fQ.X2PT4Ts4KhLmBkeFgQue6enx9LVryGnIWK60aoxwgiU
+
+### update likes
+PUT http://localhost:3003/api/blogs/66a275dd6069dc45816f819b HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2Njk1Mjg0YmQxODhjYTQ0MTIwMWY0N2UiLCJpYXQiOjE3MjE5OTc1MjN9.y76Otek9cN4FEYeEC-uCTnJiZjgmCpCKOy7gRLtR93E
+
+{
+  "likes": 0
+}
+
+
+### 
+GET http://localhost:3003/api/users
+
+### 
+POST http://localhost:3003/api/users HTTP/1.1
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "admin",
+  "name": "Ignacio Fernández Jeansalle"
+}
+
+###
+POST http://localhost:3003/api/login HTTP/1.1
+content-type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+  //"username": "nachitofj",
+  //"password": "passwordNachitofj"
+}
