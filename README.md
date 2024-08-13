@@ -24,3 +24,19 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 [./ultimate-hooks](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/ultimate-hooks)
 
 - [x] 7.8 => b: Hooks personalizados
+
+[./bloglist](https://github.com/ignacioFernandezJeansalle/fullstackopen-part7/tree/main/bloglist)
+
+- [x] 7.9 => e: Ampliar la lista de blogs - Prettier
+- [ ] 7.10 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [ ] 7.11 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [ ] 7.12 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [ ] 7.13 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [ ] 7.14 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.15 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.16 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.17 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.18 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.19 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.20 => e: Ampliar la lista de blogs - Vistas
+- [ ] 7.21 => e: Ampliar la lista de blogs - Vistas
