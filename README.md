@@ -30,7 +30,7 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 - [x] 7.9 => e: Ampliar la lista de blogs - Prettier
 - [x] 7.10 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [x] 7.11 => e: Ampliar la lista de blogs - Administración de Estado: Redux
-- [ ] 7.12 => e: Ampliar la lista de blogs - Administración de Estado: Redux
+- [x] 7.12 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [ ] 7.13 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [ ] 7.14 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.15 => e: Ampliar la lista de blogs - Vistas

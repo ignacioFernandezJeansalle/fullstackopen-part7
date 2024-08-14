@@ -1,11 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotificationWithTime } from "./reducers/notificationReducer";
-import { initializeBlogs, createBlog } from "./reducers/blogsReducer";
+import { initializeBlogs, createBlog, updateBlog, deleteBlog } from "./reducers/blogsReducer";
 
 import "./App.css";
 
-import blogService from "./services/blogs";
 import loginService from "./services/login";
 import FormLogin from "./components/FormLogin";
 import FormBlog from "./components/FormBlog";
@@ -15,21 +14,16 @@ import Notification from "./components/Notification";
 
 const App = () => {
   const dispatch = useDispatch();
-  const blogsRedux = useSelector(({ blogs }) => blogs);
+  const blogs = useSelector(({ blogs }) => blogs);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [blogs, setBlogs] = useState([]);
   const formBlogRef = useRef();
 
   useEffect(() => {
     dispatch(initializeBlogs());
   }, []);
-
-  useEffect(() => {
-    setBlogs(blogsRedux);
-  }, [blogsRedux]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogsAppUser");
@@ -70,36 +64,22 @@ const App = () => {
     }
   };
 
-  const removeBlog = async (id, title, author) => {
-    if (!window.confirm(`Do you really want to remove ${title} by ${author}?`)) return;
+  const removeBlog = async (blog) => {
+    if (!window.confirm(`Do you really want to remove ${blog.title} by ${blog.author}?`)) return;
 
     try {
-      const removedBlog = await blogService.remove(id, user.token);
-      dispatch(
-        setNotificationWithTime(`The blog ${removedBlog.title} by ${removedBlog.author} has been deleted`, false, 5000)
-      );
-      const newBlogs = blogs.filter((blog) => blog.id !== removedBlog.id);
-      setBlogs(newBlogs);
+      dispatch(deleteBlog(blog.id, user.token));
+      dispatch(setNotificationWithTime(`The blog ${blog.title} by ${blog.author} has been deleted`, false, 5000));
     } catch (error) {
       console.log(error);
       dispatch(setNotificationWithTime("Error delete blog", true, 5000));
     }
   };
 
-  const addLike = async (id, currentLikes) => {
+  const addLike = async (blog) => {
     try {
-      const likes = { likes: currentLikes + 1 };
-      const updatedBlog = await blogService.updateLikes(id, likes, user.token);
-
-      const newBlogs = blogs.map((blog) => {
-        if (blog.id === updatedBlog.id) {
-          return updatedBlog;
-        }
-
-        return blog;
-      });
-
-      setBlogs(newBlogs);
+      const blogUpdated = { ...blog, likes: blog.likes + 1 };
+      dispatch(updateBlog(blogUpdated, user.token));
     } catch (error) {
       console.log(error);
       dispatch(setNotificationWithTime("Error update likes", true, 5000));

@@ -25,7 +25,7 @@ const Blog = ({ blog, user, addLike, remove }) => {
             <p>
               <i>likes:</i> {blog.likes}
             </p>
-            <button onClick={() => addLike(blog.id, blog.likes)} data-testid="like-button">
+            <button onClick={() => addLike(blog)} data-testid="like-button">
               Like
             </button>
           </span>
@@ -36,7 +36,7 @@ const Blog = ({ blog, user, addLike, remove }) => {
           {blog.user.id === user.id && (
             <button
               onClick={() => {
-                remove(blog.id, blog.title, blog.author);
+                remove(blog);
               }}
               className="remove"
               data-testid="remove-button"
