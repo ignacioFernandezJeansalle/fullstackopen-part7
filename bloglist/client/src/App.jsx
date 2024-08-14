@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNotificationWithTime } from "./reducers/notificationReducer";
+import { initializeBlogs, createBlog } from "./reducers/blogsReducer";
 
 import "./App.css";
 
@@ -14,6 +15,7 @@ import Notification from "./components/Notification";
 
 const App = () => {
   const dispatch = useDispatch();
+  const blogsRedux = useSelector(({ blogs }) => blogs);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +24,12 @@ const App = () => {
   const formBlogRef = useRef();
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    dispatch(initializeBlogs());
   }, []);
+
+  useEffect(() => {
+    setBlogs(blogsRedux);
+  }, [blogsRedux]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogsAppUser");
@@ -55,9 +61,8 @@ const App = () => {
 
   const addNewBlog = async (newBlog) => {
     try {
-      const addedBlog = await blogService.create(newBlog, user.token);
-      dispatch(setNotificationWithTime(`A new blog: ${addedBlog.title} by ${addedBlog.author}`, false, 5000));
-      setBlogs(blogs.concat(addedBlog));
+      dispatch(createBlog(newBlog, user.token));
+      dispatch(setNotificationWithTime(`A new blog: ${newBlog.title} by ${newBlog.author}`, false, 5000));
       formBlogRef.current.toggleVisibility();
     } catch (error) {
       console.log(error);
