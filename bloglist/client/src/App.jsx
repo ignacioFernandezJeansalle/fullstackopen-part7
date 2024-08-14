@@ -53,10 +53,10 @@ const App = () => {
     setUser(null);
   };
 
-  const addNewBlog = async (newBlog) => {
+  const addBlog = async (blog) => {
     try {
-      dispatch(createBlog(newBlog, user.token));
-      dispatch(setNotificationWithTime(`A new blog: ${newBlog.title} by ${newBlog.author}`, false, 5000));
+      dispatch(createBlog(blog, user.token));
+      dispatch(setNotificationWithTime(`A new blog: ${blog.title} by ${blog.author}`, false, 5000));
       formBlogRef.current.toggleVisibility();
     } catch (error) {
       console.log(error);
@@ -76,7 +76,7 @@ const App = () => {
     }
   };
 
-  const addLike = async (blog) => {
+  const addLikeToBlog = async (blog) => {
     try {
       const blogUpdated = { ...blog, likes: blog.likes + 1 };
       dispatch(updateBlog(blogUpdated, user.token));
@@ -84,24 +84,6 @@ const App = () => {
       console.log(error);
       dispatch(setNotificationWithTime("Error update likes", true, 5000));
     }
-  };
-
-  const sortBlogsByLikes = (blogs) => {
-    const copyOfBlogs = structuredClone(blogs);
-    const smallestToLargest = false;
-
-    copyOfBlogs.sort((a, b) => {
-      if (a.likes > b.likes) {
-        return smallestToLargest ? 1 : -1;
-      }
-      if (a.likes < b.likes) {
-        return smallestToLargest ? -1 : 1;
-      }
-
-      return 0;
-    });
-
-    return copyOfBlogs;
   };
 
   return (
@@ -128,15 +110,17 @@ const App = () => {
             </section>
 
             <Togglable buttonLabel="Create new blog" ref={formBlogRef}>
-              <FormBlog handleSubmit={addNewBlog} />
+              <FormBlog handleSubmit={addBlog} />
             </Togglable>
 
             <section className="list-of-blogs">
               <h2>Blogs</h2>
               <ul>
-                {sortBlogsByLikes(blogs).map((blog) => (
-                  <Blog key={blog.id} blog={blog} user={user} addLike={addLike} remove={removeBlog} />
-                ))}
+                {blogs
+                  .toSorted((a, b) => b.likes - a.likes)
+                  .map((blog) => (
+                    <Blog key={blog.id} blog={blog} user={user} addLike={addLikeToBlog} remove={removeBlog} />
+                  ))}
               </ul>
             </section>
           </>
