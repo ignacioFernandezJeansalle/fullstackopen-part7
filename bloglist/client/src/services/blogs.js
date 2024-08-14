@@ -18,6 +18,8 @@ const create = async (blog, token) => {
   const headers = getHeaders(token);
   const response = await axios.post(baseUrl, blog, headers);
 
+  // No uso el primer response porque no tengo los datos
+  // del usuario que devuelve el backend con el populate
   const createdBlog = await getById(response.data.id);
   return createdBlog;
 };
@@ -29,12 +31,14 @@ const remove = async (id, token) => {
   return response.data;
 };
 
-const updateLikes = async (id, likes, token) => {
+const update = async (blog, token) => {
   const headers = getHeaders(token);
-  const response = await axios.put(`${baseUrl}/${id}`, likes, headers);
+  const response = await axios.put(`${baseUrl}/${blog.id}`, blog, headers);
 
+  // No uso el primer response porque no tengo los datos
+  // del usuario que devuelve el backend con el populate
   const updatedBlog = await getById(response.data.id);
   return updatedBlog;
 };
 
-export default { getAll, create, remove, updateLikes };
+export default { getAll, create, remove, update };
