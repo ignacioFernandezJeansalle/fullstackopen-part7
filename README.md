@@ -33,7 +33,7 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 - [x] 7.12 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [x] 7.13 => e: Ampliar la lista de blogs - Administración de Estado: Redux
 - [x] 7.14 => e: Ampliar la lista de blogs - Vistas
-- [ ] 7.15 => e: Ampliar la lista de blogs - Vistas
+- [x] 7.15 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.16 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.17 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.18 => e: Ampliar la lista de blogs - Vistas

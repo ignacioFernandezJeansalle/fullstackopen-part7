@@ -11,13 +11,18 @@ import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
 import Blog from "./components/Blog";
 import Users from "./components/Users";
+import BlogsByUser from "./components/BlogsByUser";
 import Notification from "./components/Notification";
 
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(({ blogs }) => blogs);
   const user = useSelector(({ user }) => user);
+  const users = useSelector(({ users }) => users);
   const formBlogRef = useRef();
+
+  const match = useMatch("/users/:id");
+  const userDetails = match ? users.find((u) => u.id === match.params.id) : null;
 
   useEffect(() => {
     dispatch(initializeUser());
@@ -65,6 +70,7 @@ const App = () => {
             }
           />
           <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<BlogsByUser data={userDetails} />} />
         </Routes>
 
         <Notification />
