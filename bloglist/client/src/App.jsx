@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotificationWithTime } from "./reducers/notificationReducer";
 import { initializeBlogs, createBlog, updateBlog, deleteBlog } from "./reducers/blogsReducer";
+import { initializeUser, logoutUser } from "./reducers/userReducer";
 
 import "./App.css";
 
-import loginService from "./services/login";
 import FormLogin from "./components/FormLogin";
 import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
@@ -15,43 +15,13 @@ import Notification from "./components/Notification";
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(({ blogs }) => blogs);
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState(null);
+  const user = useSelector(({ user }) => user);
   const formBlogRef = useRef();
 
   useEffect(() => {
+    dispatch(initializeUser());
     dispatch(initializeBlogs());
   }, []);
-
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedBlogsAppUser");
-    if (loggedUserJSON) {
-      const newUser = JSON.parse(loggedUserJSON);
-      setUser(newUser);
-    }
-  }, []);
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-
-    try {
-      const newUser = await loginService.login({ username, password });
-      window.localStorage.setItem("loggedBlogsAppUser", JSON.stringify(newUser));
-      setUser(newUser);
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      console.log(error);
-      dispatch(setNotificationWithTime("Wrong credentials", true, 5000));
-    }
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedBlogsAppUser");
-    setUser(null);
-  };
 
   const addBlog = async (blog) => {
     try {
@@ -95,18 +65,12 @@ const App = () => {
       <main>
         <Notification />
         {user === null ? (
-          <FormLogin
-            username={username}
-            password={password}
-            handleChangeUsername={({ target }) => setUsername(target.value)}
-            handleChangePassword={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
+          <FormLogin />
         ) : (
           <>
             <section className="user-info">
               <h2>{user.name}</h2>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={() => dispatch(logoutUser())}>Logout</button>
             </section>
 
             <Togglable buttonLabel="Create new blog" ref={formBlogRef}>
