@@ -2,24 +2,24 @@ import { createSlice } from "@reduxjs/toolkit";
 import loginServices from "../services/login";
 import { setNotificationWithTime } from "./notificationReducer";
 
-const userSlice = createSlice({
-  name: "user",
+const userAuthorization = createSlice({
+  name: "userAuthorization",
   initialState: null,
   reducers: {
-    set: (state, action) => action.payload,
-    clear: () => null,
+    setAuthorizedUser: (state, action) => action.payload,
+    clearAuthorizedUser: () => null,
   },
 });
 
-export const { set, clear } = userSlice.actions;
-export default userSlice.reducer;
+export const { setAuthorizedUser, clearAuthorizedUser } = userAuthorization.actions;
+export default userAuthorization.reducer;
 
-export const initializeUser = () => {
+export const initializeAuthorizedUser = () => {
   return (dispatch) => {
     const loggedUserJSON = window.localStorage.getItem("loggedBlogsAppUser");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
-      dispatch(set(user));
+      dispatch(setAuthorizedUser(user));
     }
   };
 };
@@ -29,16 +29,18 @@ export const loginUser = (username, password) => {
     try {
       const user = await loginServices.login({ username, password });
       window.localStorage.setItem("loggedBlogsAppUser", JSON.stringify(user));
-      dispatch(set(user));
+      dispatch(setAuthorizedUser(user));
     } catch (error) {
       dispatch(setNotificationWithTime("Wrong credentials", true, 5000));
     }
   };
 };
 
-export const logoutUser = () => {
+export const logoutAuthorizedUser = () => {
   return (dispatch) => {
     window.localStorage.removeItem("loggedBlogsAppUser");
-    dispatch(clear());
+    dispatch(clearAuthorizedUser());
   };
 };
+
+/* authorizedUser */
