@@ -49,14 +49,6 @@ ul {
   list-style: none;
 }
 
-.user-info {
-  border: 1px solid #bbb;
-  padding: var(--padding-section);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .user-info > h2,
 .user-info > button {
   margin: 0;

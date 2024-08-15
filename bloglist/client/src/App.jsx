@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBlogs } from "./reducers/blogsReducer";
-import { initializeAuthorizedUser, logoutAuthorizedUser } from "./reducers/userAuthorizationReducer";
+import { initializeAuthorizedUser } from "./reducers/userAuthorizationReducer";
 import { Routes, Route, useMatch } from "react-router-dom";
 
 import "./App.css";
 
+import Navbar from "./components/Navbar";
 import FormLogin from "./components/FormLogin";
 import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
@@ -37,18 +38,11 @@ const App = () => {
     <>
       <header>
         <h1>Blogs app</h1>
+
+        {authorizedUser === null ? <FormLogin /> : <Navbar />}
       </header>
 
       <main>
-        {authorizedUser === null ? (
-          <FormLogin />
-        ) : (
-          <section className="user-info">
-            <h2>{authorizedUser.name}</h2>
-            <button onClick={() => dispatch(logoutAuthorizedUser())}>Logout</button>
-          </section>
-        )}
-
         <Routes>
           <Route
             path="/"
