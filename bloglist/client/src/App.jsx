@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBlogs } from "./reducers/blogsReducer";
-import { initializeUser, logoutUser } from "./reducers/userReducer";
+import { initializeAuthorizedUser, logoutAuthorizedUser } from "./reducers/userAuthorizationReducer";
 import { Routes, Route, useMatch } from "react-router-dom";
 
 import "./App.css";
@@ -17,7 +17,7 @@ import Notification from "./components/Notification";
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(({ blogs }) => blogs);
-  const user = useSelector(({ user }) => user);
+  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
   const users = useSelector(({ users }) => users);
   const formBlogRef = useRef();
 
@@ -25,7 +25,7 @@ const App = () => {
   const userDetails = match ? users.find((u) => u.id === match.params.id) : null;
 
   useEffect(() => {
-    dispatch(initializeUser());
+    dispatch(initializeAuthorizedUser());
     dispatch(initializeBlogs());
   }, []);
 
@@ -36,12 +36,12 @@ const App = () => {
       </header>
 
       <main>
-        {user === null ? (
+        {authorizedUser === null ? (
           <FormLogin />
         ) : (
           <section className="user-info">
-            <h2>{user.name}</h2>
-            <button onClick={() => dispatch(logoutUser())}>Logout</button>
+            <h2>{authorizedUser.name}</h2>
+            <button onClick={() => dispatch(logoutAuthorizedUser())}>Logout</button>
           </section>
         )}
 
@@ -49,10 +49,10 @@ const App = () => {
           <Route
             path="/"
             element={
-              user && (
+              authorizedUser && (
                 <>
                   <Togglable buttonLabel="Create new blog" ref={formBlogRef}>
-                    <FormBlog user={user} hide={() => formBlogRef.current.toggleVisibility()} />
+                    <FormBlog user={authorizedUser} hide={() => formBlogRef.current.toggleVisibility()} />
                   </Togglable>
 
                   <section className="list-of-blogs">
@@ -61,7 +61,7 @@ const App = () => {
                       {blogs
                         .toSorted((a, b) => b.likes - a.likes)
                         .map((blog) => (
-                          <Blog key={blog.id} blog={blog} user={user} />
+                          <Blog key={blog.id} blog={blog} user={authorizedUser} />
                         ))}
                     </ul>
                   </section>

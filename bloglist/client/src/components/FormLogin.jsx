@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../reducers/userReducer";
+import { loginUser } from "../reducers/userAuthorizationReducer";
 
 const FormLogin = () => {
   const dispatch = useDispatch();
