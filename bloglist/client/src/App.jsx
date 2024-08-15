@@ -9,9 +9,10 @@ import "./App.css";
 import FormLogin from "./components/FormLogin";
 import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
-import Blog from "./components/Blog";
+import BlogList from "./components/BlogList";
 import Users from "./components/Users";
 import UserById from "./components/UserById";
+import BlogById from "./components/BlogById";
 import Notification from "./components/Notification";
 
 const App = () => {
@@ -21,8 +22,11 @@ const App = () => {
   const users = useSelector(({ users }) => users);
   const formBlogRef = useRef();
 
-  const match = useMatch("/users/:id");
-  const userDetails = match ? users.find((u) => u.id === match.params.id) : null;
+  const matchUsersById = useMatch("/users/:id");
+  const userDetails = matchUsersById ? users.find((u) => u.id === matchUsersById.params.id) : null;
+
+  const matchBlogsById = useMatch("/blogs/:id");
+  const blogDetails = matchBlogsById ? blogs.find((b) => b.id === matchBlogsById.params.id) : null;
 
   useEffect(() => {
     dispatch(initializeAuthorizedUser());
@@ -55,22 +59,14 @@ const App = () => {
                     <FormBlog hide={() => formBlogRef.current.toggleVisibility()} />
                   </Togglable>
 
-                  <section className="list-of-blogs">
-                    <h2>Blogs</h2>
-                    <ul>
-                      {blogs
-                        .toSorted((a, b) => b.likes - a.likes)
-                        .map((blog) => (
-                          <Blog key={blog.id} blog={blog} />
-                        ))}
-                    </ul>
-                  </section>
+                  <BlogList blogs={blogs} />
                 </>
               )
             }
           />
           <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<UserById data={userDetails} />} />
+          <Route path="/blogs/:id" element={<BlogById blog={blogDetails} />} />
         </Routes>
 
         <Notification />
