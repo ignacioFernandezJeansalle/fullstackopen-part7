@@ -8,7 +8,9 @@ const Users = () => {
   const users = useSelector(({ users }) => users);
 
   useEffect(() => {
-    dispatch(initializeUsers());
+    if (users.length === 0) {
+      dispatch(initializeUsers());
+    }
   }, []);
 
   return (
