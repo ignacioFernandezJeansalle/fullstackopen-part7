@@ -1,17 +1,18 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteBlog, updateBlog } from "../reducers/blogsReducer";
 
 import "./Blog.css";
 
-const Blog = ({ blog, user }) => {
-  const [visible, setVisible] = useState(false);
+const Blog = ({ blog }) => {
   const dispatch = useDispatch();
+  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
+  const [visible, setVisible] = useState(false);
 
-  const remove = () => dispatch(deleteBlog(blog, user.token));
+  const remove = () => dispatch(deleteBlog(blog, authorizedUser.token));
 
-  const addLike = () => dispatch(updateBlog({ ...blog, likes: blog.likes + 1 }, user.token));
+  const addLike = () => dispatch(updateBlog({ ...blog, likes: blog.likes + 1 }, authorizedUser.token));
 
   return (
     <li className="bloglist-item">
@@ -41,7 +42,7 @@ const Blog = ({ blog, user }) => {
             <i>user:</i> {blog.user.name}
           </p>
 
-          {blog.user.id === user.id && (
+          {blog.user.id === authorizedUser.id && (
             <button onClick={remove} className="remove" data-testid="remove-button">
               Remove
             </button>
@@ -54,7 +55,6 @@ const Blog = ({ blog, user }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
 export default Blog;

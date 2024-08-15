@@ -1,10 +1,10 @@
-import PropTypes from "prop-types";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createBlog } from "../reducers/blogsReducer";
 
-const FormBlog = ({ user, hide }) => {
+const FormBlog = ({ hide }) => {
   const dispatch = useDispatch();
+  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
 
   const EMPTY_BLOG = { title: "", author: "", url: "" };
   const KEY_TITLE = "title";
@@ -27,7 +27,7 @@ const FormBlog = ({ user, hide }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(createBlog(blog, user.token));
+    dispatch(createBlog(blog, authorizedUser.token));
     setBlog(EMPTY_BLOG);
     hide();
   };
@@ -74,10 +74,6 @@ const FormBlog = ({ user, hide }) => {
       </button>
     </form>
   );
-};
-
-FormBlog.propTypes = {
-  user: PropTypes.object.isRequired,
 };
 
 export default FormBlog;

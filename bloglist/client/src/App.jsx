@@ -52,7 +52,7 @@ const App = () => {
               authorizedUser && (
                 <>
                   <Togglable buttonLabel="Create new blog" ref={formBlogRef}>
-                    <FormBlog user={authorizedUser} hide={() => formBlogRef.current.toggleVisibility()} />
+                    <FormBlog hide={() => formBlogRef.current.toggleVisibility()} />
                   </Togglable>
 
                   <section className="list-of-blogs">
@@ -61,7 +61,7 @@ const App = () => {
                       {blogs
                         .toSorted((a, b) => b.likes - a.likes)
                         .map((blog) => (
-                          <Blog key={blog.id} blog={blog} user={authorizedUser} />
+                          <Blog key={blog.id} blog={blog} />
                         ))}
                     </ul>
                   </section>
