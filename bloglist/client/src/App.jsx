@@ -11,7 +11,7 @@ import FormBlog from "./components/FormBlog";
 import Togglable from "./components/Togglable";
 import Blog from "./components/Blog";
 import Users from "./components/Users";
-import BlogsByUser from "./components/BlogsByUser";
+import UserById from "./components/UserById";
 import Notification from "./components/Notification";
 
 const App = () => {
@@ -70,7 +70,7 @@ const App = () => {
             }
           />
           <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<BlogsByUser data={userDetails} />} />
+          <Route path="/users/:id" element={<UserById data={userDetails} />} />
         </Routes>
 
         <Notification />

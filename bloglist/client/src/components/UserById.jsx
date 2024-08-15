@@ -1,4 +1,4 @@
-const BlogsByUser = ({ data }) => {
+const UserById = ({ data }) => {
   if (!data) return null;
 
   const { name, blogs } = data;
@@ -16,4 +16,4 @@ const BlogsByUser = ({ data }) => {
   );
 };
 
-export default BlogsByUser;
+export default UserById;
