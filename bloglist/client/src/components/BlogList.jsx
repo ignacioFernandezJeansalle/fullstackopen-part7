@@ -3,7 +3,7 @@ import BlogListItem from "./BlogListItem";
 
 const BlogList = ({ blogs }) => {
   return (
-    <section className="list-of-blogs">
+    <section>
       <h2>Blogs</h2>
       <ul>
         {blogs
