@@ -67,3 +67,14 @@ export const deleteBlog = (blog, token) => {
     }
   };
 };
+
+export const addComment = (id, content) => {
+  return async (dispatch) => {
+    try {
+      const updatedBlog = await blogsServices.comment(id, content);
+      dispatch(modifyBlog(updatedBlog));
+    } catch (error) {
+      dispatch(setNotificationWithTime("Error update comments", true, 5000));
+    }
+  };
+};
