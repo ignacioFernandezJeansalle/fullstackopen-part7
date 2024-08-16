@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { initializeBlogs } from "./reducers/blogsReducer";
 import { initializeAuthorizedUser } from "./reducers/userAuthorizationReducer";
 import { Routes, Route, useMatch } from "react-router-dom";
+import { useAuthorizedUser } from "./hooks";
 
 import "./App.css";
 
@@ -19,7 +20,7 @@ import Notification from "./components/Notification";
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(({ blogs }) => blogs);
-  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
+  const { authorizedUser } = useAuthorizedUser();
   const users = useSelector(({ users }) => users);
   const formBlogRef = useRef();
 

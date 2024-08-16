@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { updateBlog, deleteBlog, addComment } from "../reducers/blogsReducer";
+import { useAuthorizedUser } from "../hooks";
 
 const BlogById = ({ blog }) => {
   const dispatch = useDispatch();
-  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
+  const { authorizedUser } = useAuthorizedUser();
   const [comment, setComment] = useState("");
 
-  if (!blog) return null;
+  if (!blog || !authorizedUser) return null;
 
   const { title, author, url, likes, user, comments } = blog;
 

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { createBlog } from "../reducers/blogsReducer";
+import { useAuthorizedUser } from "../hooks";
 
 const FormBlog = ({ hide }) => {
   const dispatch = useDispatch();
-  const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
+  const { authorizedUser } = useAuthorizedUser();
 
   const EMPTY_BLOG = { title: "", author: "", url: "" };
   const KEY_TITLE = "title";
