@@ -39,7 +39,7 @@ const App = () => {
       <header>
         <h1>Blogs app</h1>
 
-        {authorizedUser === null ? <FormLogin /> : <Navbar />}
+        {authorizedUser === null ? <FormLogin /> : <Navbar name={authorizedUser.name} />}
       </header>
 
       <main>
