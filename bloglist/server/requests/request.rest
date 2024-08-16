@@ -56,3 +56,11 @@ content-type: application/json
   //"username": "nachitofj",
   //"password": "passwordNachitofj"
 }
+
+###
+POST http://localhost:3003/api/blogs/66bbb2ef0378c92067631f74/comments HTTP/1.1
+content-type: application/json
+
+{
+  "content": "Comentario desde el request para el blog 3"
+}

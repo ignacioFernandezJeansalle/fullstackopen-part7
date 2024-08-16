@@ -7,7 +7,7 @@ const BlogById = ({ blog }) => {
 
   if (!blog) return null;
 
-  const { title, author, url, likes, user } = blog;
+  const { title, author, url, likes, user, comments } = blog;
 
   const addLike = () => dispatch(updateBlog({ ...blog, likes: blog.likes + 1 }, authorizedUser.token));
 
@@ -38,6 +38,12 @@ const BlogById = ({ blog }) => {
           Remove
         </button>
       )}
+      <h3>Comments</h3>
+      <ul>
+        {comments.map((comment) => (
+          <li key={comment.id}>{comment.content}</li>
+        ))}
+      </ul>
     </section>
   );
 };
