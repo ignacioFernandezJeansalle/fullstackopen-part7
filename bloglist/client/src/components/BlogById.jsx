@@ -1,9 +1,11 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateBlog, deleteBlog } from "../reducers/blogsReducer";
+import { updateBlog, deleteBlog, addComment } from "../reducers/blogsReducer";
 
 const BlogById = ({ blog }) => {
   const dispatch = useDispatch();
   const authorizedUser = useSelector(({ userAuthorization }) => userAuthorization);
+  const [comment, setComment] = useState("");
 
   if (!blog) return null;
 
@@ -12,6 +14,12 @@ const BlogById = ({ blog }) => {
   const addLike = () => dispatch(updateBlog({ ...blog, likes: blog.likes + 1 }, authorizedUser.token));
 
   const remove = () => dispatch(deleteBlog(blog, authorizedUser.token));
+
+  const submitComment = (event) => {
+    event.preventDefault();
+    dispatch(addComment(blog.id, comment));
+    setComment("");
+  };
 
   return (
     <section>
@@ -39,6 +47,10 @@ const BlogById = ({ blog }) => {
         </button>
       )}
       <h3>Comments</h3>
+      <form onSubmit={submitComment}>
+        <input type="text" value={comment} onChange={({ target }) => setComment(target.value)} />
+        <button type="submit">Add comment</button>
+      </form>
       <ul>
         {comments.map((comment) => (
           <li key={comment.id}>{comment.content}</li>

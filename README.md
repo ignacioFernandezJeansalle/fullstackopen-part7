@@ -37,6 +37,6 @@ Primero, nos familiarizamos con React Router. Después de esto, vimos algunas fo
 - [x] 7.16 => e: Ampliar la lista de blogs - Vistas
 - [x] 7.17 => e: Ampliar la lista de blogs - Vistas
 - [x] 7.18 => e: Ampliar la lista de blogs - Vistas
-- [ ] 7.19 => e: Ampliar la lista de blogs - Vistas
+- [x] 7.19 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.20 => e: Ampliar la lista de blogs - Vistas
 - [ ] 7.21 => e: Ampliar la lista de blogs - Vistas
