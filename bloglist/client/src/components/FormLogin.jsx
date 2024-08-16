@@ -18,7 +18,7 @@ const FormLogin = () => {
   };
 
   return (
-    <section style={{ maxWidth: 400, marginLeft: 32 }}>
+    <section style={{ maxWidth: 400 }}>
       <Header as="h2">Login</Header>
       <Form onSubmit={onSubmit}>
         <FormField>
