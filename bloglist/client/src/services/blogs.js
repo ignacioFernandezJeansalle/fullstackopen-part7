@@ -41,4 +41,13 @@ const update = async (blog, token) => {
   return updatedBlog;
 };
 
-export default { getAll, create, remove, update };
+const comment = async (id, content) => {
+  const response = await axios.post(`${baseUrl}/${id}/comments`, { content });
+
+  // No uso el primer response porque no tengo los datos
+  // del blog que devuelve el backend con el populate
+  const updatedBlog = await getById(response.data.blog);
+  return updatedBlog;
+};
+
+export default { getAll, create, remove, update, comment };
