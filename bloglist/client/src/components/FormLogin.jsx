@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../reducers/userAuthorizationReducer";
 
+import { Header, Form, FormField, Input, Button } from "semantic-ui-react";
+
 const FormLogin = () => {
   const dispatch = useDispatch();
 
@@ -16,32 +18,30 @@ const FormLogin = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <h2>Login</h2>
-      <div>
-        <label htmlFor="login-username">Username: </label>
-        <input
-          data-testid="username"
-          id="login-username"
-          type="text"
-          value={username}
-          name="username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="login-password">Password: </label>
-        <input
-          data-testid="password"
-          id="login-password"
-          type="password"
-          value={password}
-          name="password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <button type="submit">Login</button>
-    </form>
+    <section style={{ maxWidth: 400, marginLeft: 32 }}>
+      <Header as="h2">Login</Header>
+      <Form onSubmit={onSubmit}>
+        <FormField>
+          <Input
+            size="small"
+            type="text"
+            label="Username"
+            value={username}
+            onChange={({ target }) => setUsername(target.value)}
+          />
+        </FormField>
+        <FormField>
+          <Input
+            size="small"
+            type="password"
+            label="Password"
+            value={password}
+            onChange={({ target }) => setPassword(target.value)}
+          />
+        </FormField>
+        <Button type="submit">Login</Button>
+      </Form>
+    </section>
   );
 };
 
