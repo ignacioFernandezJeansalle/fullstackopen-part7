@@ -45,7 +45,7 @@ blogsRouter
     const { id } = request.params;
 
     try {
-      const blog = await Blog.findById(id).populate("user", { username: 1, name: 1 });
+      const blog = await Blog.findById(id).populate("user", { username: 1, name: 1 }).populate("comments");
       response.json(blog);
     } catch (error) {
       next(error);
