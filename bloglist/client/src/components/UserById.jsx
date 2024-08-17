@@ -1,18 +1,23 @@
+import { useAuthorizedUser } from "../hooks";
+import { Header, List, ListItem } from "semantic-ui-react";
+
 const UserById = ({ data }) => {
-  if (!data) return null;
+  const { authorizedUser } = useAuthorizedUser();
+
+  if (!authorizedUser || !data) return null;
 
   const { name, blogs } = data;
 
   return (
-    <div>
-      <h2>{name}</h2>
-      <h3>Added blogs</h3>
-      <ul>
+    <section>
+      <Header as="h2">{name}</Header>
+      <Header as="h3">Added blogs</Header>
+      <List celled>
         {blogs.map((blog) => (
-          <li key={blog.id}>{blog.title}</li>
+          <ListItem key={blog.id}>{blog.title}</ListItem>
         ))}
-      </ul>
-    </div>
+      </List>
+    </section>
   );
 };
 
