@@ -2,10 +2,14 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeUsers } from "../reducers/usersReducer";
+import { useAuthorizedUser } from "../hooks";
+
+import { Table, TableRow, TableHeader, TableHeaderCell, TableBody, TableCell } from "semantic-ui-react";
 
 const Users = () => {
-  const dispatch = useDispatch();
+  const { authorizedUser } = useAuthorizedUser();
   const users = useSelector(({ users }) => users);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (users.length === 0) {
@@ -13,27 +17,29 @@ const Users = () => {
     }
   }, []);
 
+  if (!authorizedUser) return null;
+
   return (
     <section>
-      <h2>Users</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Blogs created</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table celled>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderCell>Name</TableHeaderCell>
+            <TableHeaderCell>Blog created</TableHeaderCell>
+          </TableRow>
+        </TableHeader>
+
+        <TableBody>
           {users.map((user) => (
-            <tr key={user.id}>
-              <td>
+            <TableRow key={user.id}>
+              <TableCell>
                 <Link to={`/users/${user.id}`}>{user.name}</Link>
-              </td>
-              <td>{user.blogs.length}</td>
-            </tr>
+              </TableCell>
+              <TableCell>{user.blogs.length}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </section>
   );
 };
