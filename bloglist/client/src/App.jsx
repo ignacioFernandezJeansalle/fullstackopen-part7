@@ -1,28 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeBlogs } from "./reducers/blogsReducer";
 import { initializeAuthorizedUser } from "./reducers/userAuthorizationReducer";
 import { Routes, Route, useMatch } from "react-router-dom";
 import { useAuthorizedUser } from "./hooks";
 
-import "./App.css";
-
 import Navbar from "./components/Navbar";
 import FormLogin from "./components/FormLogin";
-import FormBlog from "./components/FormBlog";
-import Togglable from "./components/Togglable";
-import BlogList from "./components/BlogList";
+import Home from "./components/Home";
 import Users from "./components/Users";
 import UserById from "./components/UserById";
 import BlogById from "./components/BlogById";
 import Notification from "./components/Notification";
+
+import { Container, Header } from "semantic-ui-react";
 
 const App = () => {
   const dispatch = useDispatch();
   const blogs = useSelector(({ blogs }) => blogs);
   const { authorizedUser } = useAuthorizedUser();
   const users = useSelector(({ users }) => users);
-  const formBlogRef = useRef();
 
   const matchUsersById = useMatch("/users/:id");
   const userDetails = matchUsersById ? users.find((u) => u.id === matchUsersById.params.id) : null;
@@ -37,34 +34,26 @@ const App = () => {
 
   return (
     <>
-      <header>
-        <h1>Blogs app</h1>
-
-        {authorizedUser === null ? <FormLogin /> : <Navbar name={authorizedUser.name} />}
+      <header style={{ marginBottom: 16 }}>
+        <Header as="h1" block attached="top">
+          Blogs app
+        </Header>
+        {authorizedUser !== null && <Navbar />}
       </header>
 
       <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              authorizedUser && (
-                <>
-                  <Togglable buttonLabel="Create new blog" ref={formBlogRef}>
-                    <FormBlog hide={() => formBlogRef.current.toggleVisibility()} />
-                  </Togglable>
+        <Container>
+          {authorizedUser === null && <FormLogin />}
 
-                  <BlogList blogs={blogs} />
-                </>
-              )
-            }
-          />
-          <Route path="/users" element={<Users />} />
-          <Route path="/users/:id" element={<UserById data={userDetails} />} />
-          <Route path="/blogs/:id" element={<BlogById blog={blogDetails} />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/users" element={<Users />} />
+            <Route path="/users/:id" element={<UserById data={userDetails} />} />
+            <Route path="/blogs/:id" element={<BlogById blog={blogDetails} />} />
+          </Routes>
 
-        <Notification />
+          <Notification />
+        </Container>
       </main>
     </>
   );
