@@ -3,7 +3,10 @@ import { useDispatch } from "react-redux";
 import { createBlog } from "../reducers/blogsReducer";
 import { useAuthorizedUser } from "../hooks";
 
-const FormBlog = ({ hide }) => {
+import { Accordion, AccordionTitle, AccordionContent, Icon, Form, FormField, Input, Button } from "semantic-ui-react";
+
+const FormBlog = () => {
+  const [active, setActive] = useState(false);
   const dispatch = useDispatch();
   const { authorizedUser } = useAuthorizedUser();
 
@@ -30,50 +33,46 @@ const FormBlog = ({ hide }) => {
 
     dispatch(createBlog(blog, authorizedUser.token));
     setBlog(EMPTY_BLOG);
-    hide();
+    setActive(false);
   };
 
   return (
-    <form id="form-blog" onSubmit={handleSubmit}>
-      <h2>Create new blog</h2>
-      <div>
-        <label htmlFor="blog-title">Title: </label>
-        <input
-          data-testid="title"
-          id="blog-title"
-          type="text"
-          value={blog.title}
-          name={KEY_TITLE}
-          onChange={handleChangeData}
-        />
-      </div>
-      <div>
-        <label htmlFor="blog-author">Author: </label>
-        <input
-          data-testid="author"
-          id="blog-author"
-          type="text"
-          value={blog.author}
-          name={KEY_AUTHOR}
-          onChange={handleChangeData}
-        />
-      </div>
-      <div>
-        <label htmlFor="blog-url">url: </label>
-        <input
-          data-testid="url"
-          id="blog-url"
-          type="text"
-          value={blog.url}
-          name={KEY_URL}
-          onChange={handleChangeData}
-        />
-      </div>
-
-      <button type="submit" data-testid="submit-button">
-        Create
-      </button>
-    </form>
+    <section style={{ maxWidth: 400, marginBottom: 32 }}>
+      <Accordion>
+        <AccordionTitle as="h2" active={active} onClick={() => setActive(!active)}>
+          <Icon name="dropdown" />
+          Create new blog
+        </AccordionTitle>
+        <AccordionContent active={active}>
+          <Form id="form-blog" onSubmit={handleSubmit}>
+            <FormField>
+              <Input
+                size="small"
+                label="Title"
+                type="text"
+                value={blog.title}
+                name={KEY_TITLE}
+                onChange={handleChangeData}
+              />
+            </FormField>
+            <FormField>
+              <Input
+                size="small"
+                label="Author"
+                type="text"
+                value={blog.author}
+                name={KEY_AUTHOR}
+                onChange={handleChangeData}
+              />
+            </FormField>
+            <FormField>
+              <Input size="small" label="url" type="text" value={blog.url} name={KEY_URL} onChange={handleChangeData} />
+            </FormField>
+            <Button type="submit">Create</Button>
+          </Form>
+        </AccordionContent>
+      </Accordion>
+    </section>
   );
 };
 
